@@ -12,8 +12,8 @@ class CircularQueue
 public:
 	CircularQueue():front(0), rear(-1),count(0){}
 	bool isEmpty();			// Check if Circular Queue is empty. Return true if empty, false otherwise
-  bool isFull();			// Check if Circular Queue is full. Return true if full, false otherwise
-	void enqueue(int x);		// Insert integer at the rear of the Circular Queue
+    bool isFull();			// Check if Circular Queue is full. Return true if full, false otherwise
+	void enqueue(int x);    // Insert integer at the rear of the Circular Queue
 	int dequeue();			// Remove integer from the front of the Circular Queue
 	void display();			// Display the contents of the Circular Queue
 };
