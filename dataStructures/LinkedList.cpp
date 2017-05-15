@@ -14,14 +14,14 @@ class LinkedList
 	Node* head;
 public:
 	LinkedList():head(NULL){}
-	void push_front(int x);		//Push an integer at the front of the list
-	void push_back(int x);	   	//Push an integer at the back of the list	
-	int pop_front();		//Pop an integer from the front of the list
-	int pop_back();			//Pop an integer from the back of the list
-	void display();			//Display the contents of the list from front to back
-	Node* find(int x);		//Find an integer in the list and return the pointer to the node
-	void push_after(int x, int y);	//Find an integer in the list and push the other integer after it
-	void delete_item(int x);	//Find an integer in the list and delete its node
+	void push_front(int x);		// Push an integer at the front of the list
+	void push_back(int x);	   	// Push an integer at the back of the list	
+	int pop_front();		// Pop an integer from the front of the list
+	int pop_back();			// Pop an integer from the back of the list
+	void display();			// Display the contents of the list from front to back
+	Node* find(int x);		// Find an integer in the list and return the pointer to the node
+	void push_after(int x, int y);	// Find an integer in the list and push the other integer after it
+	void delete_item(int x);	// Find an integer in the list and delete its node
 };
 
 void LinkedList::push_front(int x)
@@ -51,14 +51,12 @@ void LinkedList::push_back(int x)
 
 int LinkedList::pop_front()
 {
-	
 	Node* temp = head;
 	if(!temp)
 	{
 		std::cout<<"ERROR! List is empty. Cannot pop element from front"<<std::endl;
 		return -1;
 	}
-	
 	delete head;
 	head = temp->next;
 	std::cout<<"Removed "<<temp->data<<" from the front of the list"<<std::endl;
@@ -92,11 +90,9 @@ int LinkedList::pop_back()
 	prev = NULL;
 	while(last->next)
 	{
-		
 		prev = last;
 		last = last->next;
 	}
-
 	std::cout<<"Removed "<<last->data<<" from the back of the list"<<std::endl;
 	poppedData = last->data;
 	delete last;
@@ -124,7 +120,6 @@ void LinkedList::display()
 		}
 		std::cout<<std::endl;
 	}
-	
 }
 
 Node* LinkedList::find(int x)
@@ -133,7 +128,6 @@ Node* LinkedList::find(int x)
 	{
 		return head;
 	}
-	
 	Node* temp=head;
 	while(temp->next)
 	{
@@ -152,7 +146,6 @@ Node* LinkedList::find(int x)
 void LinkedList::push_after(int x, int y)
 {
 	Node* temp = find(x);
-	
 	if(temp)
 	{
 		Node* newNode = new Node;
@@ -227,7 +220,6 @@ int main()
 		
 return 0;
 }
-
 /*
 Expected Output-
 ----------------
