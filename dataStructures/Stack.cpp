@@ -8,7 +8,7 @@ class Stack{
 	int top;
 public:
 	Stack(): top(-1){}
-	bool isEmpty();		// Check is stack is empty. Return true if empty, false if not
+	bool isEmpty();		// Check if stack is empty. Return true if empty, false if not
 	int pop();		// Pop the top integer from the stack
 	void push(int x);	// Push an integer on top of the stack
 	void peek();		// View the top of the stack without removing the integer
@@ -49,9 +49,13 @@ void Stack::push(int x)
 void Stack::peek()
 {
 	if(!isEmpty())
+	{
 		std::cout<<"Top of stack is "<<a[top]<<std::endl;
+	}
 	else
+	{
 		std::cout<<"Stack is empty!"<<std::endl;
+	}
 }
 int main()
 {
