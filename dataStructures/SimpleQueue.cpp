@@ -24,7 +24,7 @@ void Queue::enqueue(int x)
 {
 	if(rear == MAXSIZE-1)
 	{
-		std::cout<<"Queue is full. Cannot add more items"<<std::endl;
+		std::cout<<"ERROR! Queue is full. Cannot add more items"<<std::endl;
 	}
 	else
 	{
@@ -86,7 +86,7 @@ Inserted 3 into the queue.
 Inserted 4 into the queue.
 Inserted 5 into the queue.
 The contents of the queue are: 1	2	3	4	5	
-Queue is full. Cannot add more items
+ERROR! Queue is full. Cannot add more items
 Removed 1 from the queue
 Removed 2 from the queue
 Removed 3 from the queue
