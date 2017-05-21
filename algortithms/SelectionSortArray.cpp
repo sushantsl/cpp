@@ -2,7 +2,7 @@
 
 #define MAXSIZE 5
 
-//Function two swap values at indexes i and j of integer array a[]
+//Function to swap values at indexes i and j of integer array a[]
 void swap(int a[],int i, int j)
 {
 	int temp = a[i];
@@ -32,7 +32,7 @@ void selectionSort(int a[])
 //Function to display contents of intger array a[]
 void display(int a[])
 {
-	for(int i=0; i<MAXSIZE; ++i)
+	for(int i=0; i < MAXSIZE; ++i)
 	{
 		std::cout<<"\t"<<a[i];
 	}
