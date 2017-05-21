@@ -10,7 +10,7 @@ void swap(int a[],int i, int j)
 	a[j] = temp;
 }
 
-//Function to perform selection sort over integer arrat a[]
+//Function to perform selection sort over integer array a[]
 void selectionSort(int a[])
 {
 	for(int i=0; i < MAXSIZE; ++i)
@@ -27,7 +27,6 @@ void selectionSort(int a[])
 			swap(a, i, min);
 		}
 	}	
-	
 }
 
 //Function to display contents of intger array a[]
@@ -41,7 +40,6 @@ void display(int a[])
 
 int main()
 {
-
 	int a[MAXSIZE] = {5,7,1,4,2};
 
 	std::cout<<"Contents of array before sort: ";
