@@ -2,7 +2,7 @@
 
 #define MAXSIZE 5
 
-//Function two swap values at indexes i and j of integer array a[]
+//Function to swap values at indexes i and j of integer array a[]
 void swap(int a[],int i, int j)
 {
 	int temp = a[i];
