@@ -13,7 +13,7 @@ void swap(int a[],int i, int j)
 //Function to perform insertion sort over integer array a[]
 void insertionSort(int a[])
 {
-	for(int i=0; i< MAXSIZE; ++i)
+	for(int i=0; i < MAXSIZE; ++i)
 	{
 		for(int j=i; j>0; j--)
 		{
@@ -34,7 +34,7 @@ void insertionSort(int a[])
 //Function to display contents of intger array a[]
 void display(int a[])
 {
-	for(int i=0; i<MAXSIZE; ++i)
+	for(int i=0; i < MAXSIZE; ++i)
 	{
 		std::cout<<"\t"<<a[i];
 	}
@@ -42,7 +42,6 @@ void display(int a[])
 
 int main()
 {
-
 	int a[MAXSIZE] = {5,7,1,4,2};
 
 	std::cout<<"Contents of array before sort: ";
