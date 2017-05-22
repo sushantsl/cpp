@@ -4,9 +4,10 @@ class Node
 {
 public:
 	int data;
+	Node* parent;
 	Node* left;
 	Node* right;
-	Node(): left(NULL), right(NULL){}
+	Node(): parent(NULL), left(NULL), right(NULL){}
 };
 
 class BinarySearchTree
@@ -14,13 +15,15 @@ class BinarySearchTree
 	Node* root;
 public:
 	BinarySearchTree(): root(NULL){}
-	Node* getRoot();			// Return the root of the Binary Search Tree
-	void insert(int x);			// Insert integer in the appropriate location in the tree
-	void preorder(Node* node);		// Traverse the tree PreOrder,  root->left->right
-	void inorder(Node* node);		// Traverse the tree InOrder,   left->root->right
-	void postorder(Node* node);		// Traverse the tree PostOrder, left->right->root
-	bool search(int key,Node* node);	// Return true if key exists in the tree, false otherwise
-	Node* copy(Node* node);			// Deep copy the tree and return the root of the new one
+	Node* getRoot();				// Return the root of the Binary Search Tree
+	void insert(int x);				// Insert integer in the appropriate location in the tree
+	void preorder(Node* root);			// Traverse the tree PreOrder,  root->left->right
+	void inorder(Node* root);			// Traverse the tree InOrder,   left->root->right
+	void postorder(Node* root);			// Traverse the tree PostOrder, left->right->root
+	Node* search(int key,Node* root);		// Return root of the key if it exists in the tree, NULL otherwise
+	Node* copy(Node* root);				// Deep copy the tree and return the root of the new one
+	Node* getMin(Node* root);			// Get the node with the minimum value with respect to the given root
+	Node* deleteItem(int key, Node* root);		// Delete an item from the tree if it is found by search()
 };
 
 Node* BinarySearchTree::getRoot()
@@ -38,12 +41,11 @@ void BinarySearchTree::insert(int x)
 		return;
 	}
 	
-	//Find the right parent for the new node
-	Node* prev = NULL;
+	//Find the right parent for the new root
 	Node* curr = root;
 	while(curr)
 	{
-		prev = curr;
+		newNode->parent = curr;
 		
 		if(x < curr->data)
 		{
@@ -54,83 +56,145 @@ void BinarySearchTree::insert(int x)
 			curr = curr->right;
 		}	
 	}
-	
+
 	// Insert to the left or right of the parent
-	if(x < prev->data)
+	if(x < newNode->parent->data)
 	{
-		prev->left = newNode;
+		newNode->parent->left = newNode;
 	}
 	else
 	{
-		prev->right = newNode;
+		newNode->parent->right = newNode;
 	}  
 }
-void BinarySearchTree::preorder(Node* node)
+void BinarySearchTree::preorder(Node* root)
 {
-	if(!node)
+	if(!root)
 	{
 		return;
 	}
 	
-	std::cout<<"\t"<<node->data;
-	preorder(node->left);
-	preorder(node->right);	
+	std::cout<<"\t"<<root->data;
+	preorder(root->left);
+	preorder(root->right);	
 }
-void BinarySearchTree::inorder(Node* node)
+void BinarySearchTree::inorder(Node* root)
 {
-	if(!node)
+	if(!root)
         {
 	        return;
 	}
 	
-	inorder(node->left);
-	std::cout<<"\t"<<node->data;
-	inorder(node->right);
+	inorder(root->left);
+	std::cout<<"\t"<<root->data;
+	inorder(root->right);
 }
-void BinarySearchTree::postorder(Node* node)
+void BinarySearchTree::postorder(Node* root)
 {
-	if(!node)
+	if(!root)
         {
 	        return;
 	}
 	
-	postorder(node->left);
-	postorder(node->right);
-	std::cout<<"\t"<<node->data;
+	postorder(root->left);
+	postorder(root->right);
+	std::cout<<"\t"<<root->data;
 }
-bool BinarySearchTree::search(int key,Node* node)
+Node* BinarySearchTree::search(int key,Node* root)
 {
-	if(!node)
+	if(!root)
 	{
-		return false;
+		return NULL;
 	}
-	if(key == node->data)
+	if(key == root->data)
 	{
-		return true;
+		return root;
 	}
-	if(key < node->data)
+	if(key < root->data)
 	{
-		return search(key,node->left);
+		return search(key,root->left);
 	}
 	else
 	{
-		return search(key,node->right);
+		return search(key,root->right);
 	} 	
 }
-Node* BinarySearchTree::copy(Node* node)
+Node* BinarySearchTree::copy(Node* root)
 {
-	if(!node)
+	if(!root)
 	{
 		//Tree is empty
 		return NULL;
 	}
 
 	Node* newRoot = new Node;
-	newRoot->data = node->data;
-	newRoot->left = copy(node->left);
-	newRoot->right= copy(node->right);
+	newRoot->data = root->data;
+	newRoot->parent = root->parent;
+	newRoot->left = copy(root->left);
+	newRoot->right= copy(root->right);
 	
 	return newRoot;
+}
+Node* BinarySearchTree::getMin(Node* root)
+{
+	if(!root)
+	{
+		return NULL;
+	}
+	if(root->left != NULL)
+	{
+		return getMin(root->left);
+	}
+	return root;
+}
+Node* BinarySearchTree::deleteItem(int key, Node* root)
+{
+	if(!root)
+	{
+		return NULL;
+	}
+	if(key < root->data)
+	{
+		//Look for the key in the left sub-tree
+		root->left = deleteItem(key, root->left);
+	}
+	else if(key > root->data)
+	{
+		//Look for the key in the right sub-tree
+		root->right = deleteItem(key, root->right);
+	}
+	else
+	{
+		if((root->left == NULL) && (root->right == NULL))
+		{
+			//No children
+			delete root;
+			root = NULL;
+		}
+		else if(root->left == NULL)
+		{
+			//1 child to the right
+			Node* temp = root;
+			root = root->right;
+			delete temp;
+		}
+		else if(root->right == NULL)
+                {
+			//1 child to the left
+                        Node* temp = root;
+                        root = root->left;
+                        delete temp;
+                }
+		else
+		{
+			//Two children
+			Node* temp = getMin(root->right);
+			root->data = temp->data;
+			root->right= deleteItem(temp->data, root->right);
+		}
+	 }
+	return root;
+	
 }
 int main()
 {
@@ -156,6 +220,11 @@ int main()
 	bst.postorder(bst.getRoot());
 	std::cout<<std::endl;
 
+	Node* copiedTree = bst.copy(bst.getRoot());
+        std::cout<<"Inorder copied tree : ";
+        bst.inorder(copiedTree);
+        std::cout<<std::endl;
+
 	if(bst.search(5,bst.getRoot()))
 	{
 		std::cout<<"Search Successful! 5 was found in the tree"<<std::endl;
@@ -174,10 +243,17 @@ int main()
                 std::cout<<"Search Unuccessful! 1 was not found in the tree"<<std::endl;
         }
 
-	Node* copiedTree = bst.copy(bst.getRoot());
-	std::cout<<"Inorder copied tree : ";
-	bst.inorder(copiedTree);
-	std::cout<<std::endl;
+	bst.deleteItem(3,bst.getRoot());
+	std::cout<<"Deleted 3"<<std::endl;
+	std::cout<<"Inorder traversal    : ";
+        bst.inorder(bst.getRoot());
+        std::cout<<std::endl;
+
+	bst.deleteItem(5,bst.getRoot());
+	std::cout<<"Deleted 5"<<std::endl;
+        std::cout<<"Inorder traversal    : ";
+	bst.inorder(bst.getRoot());
+        std::cout<<std::endl;
 
 return 0;
 }
@@ -187,7 +263,11 @@ Expected Output-
 Preorder traversal  : 	5	4	2	3	6	7	8
 Inorder traversal   : 	2	3	4	5	6	7	8
 Postorder traversal : 	3	2	4	8	7	6	5
+Inorder copied tree : 	2	3	4	5	6	7	8
 Search Successful! 5 was found in the tree
 Search Unuccessful! 1 was not found in the tree
-Inorder copied tree : 	2	3	4	5	6	7	8
+Deleted 3
+Inorder traversal    : 	2	4	5	6	7	8
+Deleted 5
+Inorder traversal    : 	2	4	6	7	8
 */
