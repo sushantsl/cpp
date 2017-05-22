@@ -45,8 +45,8 @@ int main()
 	bubbleSort(a);	
 
 	std::cout<<"Contents of array after sort: ";
-  display(a);
-  std::cout<<std::endl;
+  	display(a);
+  	std::cout<<std::endl;
 
 return 0;
 }
