@@ -1,4 +1,4 @@
-//Program to implement a Simple Queue of integers using array. Queue size decreases as item is dequeued. 
+//Program to implement a Simple Queue of integers using array. Queue size decreases as item is dequeued.
 #include <iostream>
 
 #define MAXSIZE 5
@@ -8,53 +8,54 @@ class Queue
 	int a[MAXSIZE];
 	int front;
 	int rear;
+
 public:
-	Queue():front(0), rear(-1){}
-	bool isEmpty();			// Check if Queue is empty. Return true if empty, false otherwise
-	void enqueue(int x);		// Insert integer into the the rear of the queue
-	int dequeue();			// Remove integer from the front of the queue
-	void display();			// Display the contents of the queue
+	Queue() : front(0), rear(-1) {}
+	bool isEmpty();		 // Check if Queue is empty. Return true if empty, false otherwise
+	void enqueue(int x); // Insert integer into the the rear of the queue
+	int dequeue();		 // Remove integer from the front of the queue
+	void display();		 // Display the contents of the queue
 };
 
 bool Queue::isEmpty()
 {
-	return((front > rear) ? true : false);
+	return ((front > rear) ? true : false);
 }
 void Queue::enqueue(int x)
 {
-	if(rear == MAXSIZE-1)
+	if (rear == MAXSIZE - 1)
 	{
-		std::cout<<"ERROR! Queue is full. Cannot add more items"<<std::endl;
+		std::cout << "ERROR! Queue is full. Cannot add more items" << std::endl;
 	}
 	else
 	{
 		a[++rear] = x;
-		std::cout<<"Inserted "<<x<<" into the queue."<<std::endl;
+		std::cout << "Inserted " << x << " into the queue." << std::endl;
 	}
 }
 int Queue::dequeue()
 {
-	if(isEmpty())
+	if (isEmpty())
 	{
-		std::cout<<"ERROR! Cannot dequeue. Queue is empty!"<<std::endl;
+		std::cout << "ERROR! Cannot dequeue. Queue is empty!" << std::endl;
 		return -1;
 	}
 	else
 	{
 		int value = a[front];
-                std::cout<<"Removed "<<value<<" from the queue"<<std::endl;
-                front++;
-                return value;
+		std::cout << "Removed " << value << " from the queue" << std::endl;
+		front++;
+		return value;
 	}
 }
 void Queue::display()
 {
-	std::cout<<"The contents of the queue are: ";
-	for(int i=front; i <= rear; ++i)
+	std::cout << "The contents of the queue are: ";
+	for (int i = front; i <= rear; ++i)
 	{
-		std::cout<<a[i]<<"\t";
+		std::cout << a[i] << "\t";
 	}
-	std::cout<<std::endl;	
+	std::cout << std::endl;
 }
 int main()
 {
@@ -75,7 +76,7 @@ int main()
 	q.dequeue();
 	q.dequeue();
 
-return 0;
+	return 0;
 }
 /*
 Expected Output-

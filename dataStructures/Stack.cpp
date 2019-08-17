@@ -3,15 +3,17 @@
 
 #define MAXSIZE 5
 
-class Stack{
+class Stack
+{
 	int a[MAXSIZE];
 	int top;
+
 public:
-	Stack(): top(-1){}
-	bool isEmpty();		// Check if stack is empty. Return true if empty, false if not
-	int pop();		// Pop the top integer from the stack
-	void push(int x);	// Push an integer on top of the stack
-	void peek();		// View the top of the stack without removing the integer
+	Stack() : top(-1) {}
+	bool isEmpty();   // Check if stack is empty. Return true if empty, false if not
+	int pop();		  // Pop the top integer from the stack
+	void push(int x); // Push an integer on top of the stack
+	void peek();	  // View the top of the stack without removing the integer
 };
 
 bool Stack::isEmpty()
@@ -20,63 +22,62 @@ bool Stack::isEmpty()
 }
 int Stack::pop()
 {
-        if(!isEmpty())
+	if (!isEmpty())
 	{
 		int value = a[top];
 		top--;
-		std::cout<<"Popped "<<value<<std::endl;
-		return value; 
+		std::cout << "Popped " << value << std::endl;
+		return value;
 	}
 	else
 	{
-		std::cout<<"ERROR! Stack Underflow. No items available to pop!"<<std::endl;
+		std::cout << "ERROR! Stack Underflow. No items available to pop!" << std::endl;
 		return -1;
 	}
-		
 }
 void Stack::push(int x)
 {
-	if(top == MAXSIZE-1)
+	if (top == MAXSIZE - 1)
 	{
-		std::cout<<"ERROR! Stack Overflow. Item " << x <<" not pushed"<<std::endl;
+		std::cout << "ERROR! Stack Overflow. Item " << x << " not pushed" << std::endl;
 	}
 	else
 	{
-		a[++top]=x;
-		std::cout<<"Pushed "<<x<<std::endl;  
-	}		
+		a[++top] = x;
+		std::cout << "Pushed " << x << std::endl;
+	}
 }
 void Stack::peek()
 {
-	if(!isEmpty())
+	if (!isEmpty())
 	{
-		std::cout<<"Top of stack is "<<a[top]<<std::endl;
+		std::cout << "Top of stack is " << a[top] << std::endl;
 	}
 	else
 	{
-		std::cout<<"Stack is empty!"<<std::endl;
+		std::cout << "Stack is empty!" << std::endl;
 	}
 }
 int main()
 {
 	Stack s;
-	s.push(1);	
+	s.push(1);
 	s.push(2);
 	s.push(3);
 	s.push(4);
 	s.push(5);
-	
+
 	s.peek();
 
 	s.push(6);
 	s.pop();
-        s.pop();		
 	s.pop();
 	s.pop();
 	s.pop();
-	s.pop();	
+	s.pop();
+	s.pop();
 
-return 0;
+	return 0;
 }
 /*
 Expected Output-

@@ -5,191 +5,189 @@ class Node
 {
 public:
 	int data;
-	Node* next;	
+	Node *next;
 };
 
 class LinkedList
 {
 
-	Node* head;
+	Node *head;
+
 public:
-	LinkedList():head(NULL){}
-	void push_front(int x);		// Push an integer at the front of the list
-	void push_back(int x);	   	// Push an integer at the back of the list	
-	int pop_front();		// Pop an integer from the front of the list
-	int pop_back();			// Pop an integer from the back of the list
-	void display();			// Display the contents of the list from front to back
-	Node* find(int x);		// Find an integer in the list and return the pointer to the node
-	void push_after(int x, int y);	// Find an integer in the list and push the other integer after it
-	void delete_item(int x);	// Find an integer in the list and delete its node
+	LinkedList() : head(NULL) {}
+	void push_front(int x);		   // Push an integer at the front of the list
+	void push_back(int x);		   // Push an integer at the back of the list
+	int pop_front();			   // Pop an integer from the front of the list
+	int pop_back();				   // Pop an integer from the back of the list
+	void display();				   // Display the contents of the list from front to back
+	Node *find(int x);			   // Find an integer in the list and return the pointer to the node
+	void push_after(int x, int y); // Find an integer in the list and push the other integer after it
+	void delete_item(int x);	   // Find an integer in the list and delete its node
 };
 
 void LinkedList::push_front(int x)
 {
-	Node* newNode = new Node;
+	Node *newNode = new Node;
 	newNode->data = x;
 	newNode->next = head;
 	head = newNode;
-	std::cout<<"Inserted "<<x<<" at the front of the list"<<std::endl;
+	std::cout << "Inserted " << x << " at the front of the list" << std::endl;
 }
 
 void LinkedList::push_back(int x)
 {
-	Node* newNode = new Node;
+	Node *newNode = new Node;
 	newNode->data = x;
 	newNode->next = NULL;
-	
-	Node* temp = head;
-	while(temp->next)
+
+	Node *temp = head;
+	while (temp->next)
 	{
 		temp = temp->next;
 	}
 	temp->next = newNode;
-	std::cout<<"Inserted "<<x<<" at the back of the list"<<std::endl;
-	
+	std::cout << "Inserted " << x << " at the back of the list" << std::endl;
 }
 
 int LinkedList::pop_front()
 {
-	Node* temp = head;
-	if(!temp)
+	Node *temp = head;
+	if (!temp)
 	{
-		std::cout<<"ERROR! List is empty. Cannot pop element from front"<<std::endl;
+		std::cout << "ERROR! List is empty. Cannot pop element from front" << std::endl;
 		return -1;
 	}
 	delete head;
 	head = temp->next;
-	std::cout<<"Removed "<<temp->data<<" from the front of the list"<<std::endl;
-	
+	std::cout << "Removed " << temp->data << " from the front of the list" << std::endl;
+
 	return temp->data;
-	
 }
 
 int LinkedList::pop_back()
 {
-	Node* last = NULL;
-	Node* prev = NULL;
+	Node *last = NULL;
+	Node *prev = NULL;
 	int poppedData = -1;
 
-        if(!head)
-        {
-                std::cout<<"ERROR! List is empty. Cannot pop element from back"<<std::endl;
-                return -1;
-        }
-	if(!head->next)
+	if (!head)
+	{
+		std::cout << "ERROR! List is empty. Cannot pop element from back" << std::endl;
+		return -1;
+	}
+	if (!head->next)
 	{
 		//There is only one node in the list
-		std::cout<<"Removed "<<head->data<<" from the back of the list"<<std::endl;
+		std::cout << "Removed " << head->data << " from the back of the list" << std::endl;
 		poppedData = head->data;
 		delete head;
 		head = NULL;
 		return poppedData;
 	}
-	
+
 	last = head;
 	prev = NULL;
-	while(last->next)
+	while (last->next)
 	{
 		prev = last;
 		last = last->next;
 	}
-	std::cout<<"Removed "<<last->data<<" from the back of the list"<<std::endl;
+	std::cout << "Removed " << last->data << " from the back of the list" << std::endl;
 	poppedData = last->data;
 	delete last;
 	prev->next = NULL;
-	
+
 	return poppedData;
-	
 }
 void LinkedList::display()
 {
-	Node* temp = head;
-	if(!temp)
-        { 
-		std::cout<<"List is empty"<<std::endl;
+	Node *temp = head;
+	if (!temp)
+	{
+		std::cout << "List is empty" << std::endl;
 		return;
 	}
 	else
-	{	
-		std::cout<<"The contents of the list are:\t";
-		std::cout<<temp->data;
-		while(temp->next)
+	{
+		std::cout << "The contents of the list are:\t";
+		std::cout << temp->data;
+		while (temp->next)
 		{
 			temp = temp->next;
-			std::cout<<"\t"<<temp->data;		
+			std::cout << "\t" << temp->data;
 		}
-		std::cout<<std::endl;
+		std::cout << std::endl;
 	}
 }
 
-Node* LinkedList::find(int x)
+Node *LinkedList::find(int x)
 {
 	if (x == head->data)
 	{
 		return head;
 	}
-	Node* temp=head;
-	while(temp->next)
+	Node *temp = head;
+	while (temp->next)
 	{
-		temp=temp->next;
-		if(x == temp->data)
+		temp = temp->next;
+		if (x == temp->data)
 		{
-			std::cout<<"Found "<<x<<" in the list. Returning node"<<std::endl;
+			std::cout << "Found " << x << " in the list. Returning node" << std::endl;
 			return temp;
 		}
-	}		
-	
-	std::cout<<"ERROR! "<<x<<" not found in the list"<<std::endl;
+	}
+
+	std::cout << "ERROR! " << x << " not found in the list" << std::endl;
 	return NULL;
 }
 
 void LinkedList::push_after(int x, int y)
 {
-	Node* temp = find(x);
-	if(temp)
+	Node *temp = find(x);
+	if (temp)
 	{
-		Node* newNode = new Node;
+		Node *newNode = new Node;
 		newNode->data = y;
 		newNode->next = temp->next;
 		temp->next = newNode;
-		std::cout<<"Pushed "<<y<<" after "<<x<<std::endl;	
+		std::cout << "Pushed " << y << " after " << x << std::endl;
 	}
 	else
 	{
-		std::cout<<"ERROR! Target node "<<x<<"  not found. Push failed."<<std::endl;
+		std::cout << "ERROR! Target node " << x << "  not found. Push failed." << std::endl;
 		return;
 	}
 }
 
 void LinkedList::delete_item(int x)
 {
-	Node* temp = find(x);
-	Node* prev = head;
-	
-        if(temp)
-        {
+	Node *temp = find(x);
+	Node *prev = head;
+
+	if (temp)
+	{
 		//Check if it is the only node
-		if(!temp->next)
+		if (!temp->next)
 		{
-			std::cout<<"Removed "<<x<<" from the list"<<std::endl;
+			std::cout << "Removed " << x << " from the list" << std::endl;
 			head = NULL;
 			return;
 		}
-		while(prev->next != temp)
+		while (prev->next != temp)
 		{
-			prev=prev->next;
+			prev = prev->next;
 		}
-		
-		std::cout<<"Removed "<<x<<" from the list"<<std::endl;
+
+		std::cout << "Removed " << x << " from the list" << std::endl;
 		prev->next = temp->next;
 		delete temp;
-		return;		
+		return;
 	}
 	else
-        {
-                std::cout<<"ERROR! Target node "<<x<<" not found. Pop failed."<<std::endl;
-                return;
-        }		
+	{
+		std::cout << "ERROR! Target node " << x << " not found. Pop failed." << std::endl;
+		return;
+	}
 }
 
 int main()
@@ -199,16 +197,16 @@ int main()
 	l.push_front(1);
 	l.push_front(2);
 	l.push_back(3);
-	l.push_after(3,4);
+	l.push_after(3, 4);
 	l.push_front(5);
-	
+
 	l.display();
-	
+
 	l.delete_item(3);
 	l.delete_item(6);
-	
+
 	l.pop_front();
-	
+
 	l.display();
 
 	l.pop_back();
@@ -217,8 +215,7 @@ int main()
 	l.pop_front();
 	l.pop_back();
 
-		
-return 0;
+	return 0;
 }
 /*
 Expected Output-

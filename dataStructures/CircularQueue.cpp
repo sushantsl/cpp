@@ -1,4 +1,4 @@
-//Program to implement a Circular Queue of integers using array. Rear wraps around. Queue can hold MAXSIZE-1 elements.  
+//Program to implement a Circular Queue of integers using array. Rear wraps around. Queue can hold MAXSIZE-1 elements.
 #include <iostream>
 
 #define MAXSIZE 5
@@ -9,13 +9,14 @@ class CircularQueue
 	int front;
 	int rear;
 	int count;
+
 public:
-	CircularQueue():front(0), rear(-1),count(0){}
-	bool isEmpty();			// Check if Circular Queue is empty. Return true if empty, false otherwise
-    	bool isFull();			// Check if Circular Queue is full. Return true if full, false otherwise
-	void enqueue(int x);    	// Insert integer at the rear of the Circular Queue
-	int dequeue();			// Remove integer from the front of the Circular Queue
-	void display();			// Display the contents of the Circular Queue
+	CircularQueue() : front(0), rear(-1), count(0) {}
+	bool isEmpty();		 // Check if Circular Queue is empty. Return true if empty, false otherwise
+	bool isFull();		 // Check if Circular Queue is full. Return true if full, false otherwise
+	void enqueue(int x); // Insert integer at the rear of the Circular Queue
+	int dequeue();		 // Remove integer from the front of the Circular Queue
+	void display();		 // Display the contents of the Circular Queue
 };
 
 bool CircularQueue::isEmpty()
@@ -24,43 +25,42 @@ bool CircularQueue::isEmpty()
 }
 bool CircularQueue::isFull()
 {
-	return ((count == MAXSIZE-1) ? true : false);
+	return ((count == MAXSIZE - 1) ? true : false);
 }
 void CircularQueue::enqueue(int x)
 {
-	if(isFull())
+	if (isFull())
 	{
-		std::cout<<"ERROR! Circular Queue is full. Cannot add more items"<<std::endl;
+		std::cout << "ERROR! Circular Queue is full. Cannot add more items" << std::endl;
 		return;
 	}
-	rear = (rear+1) % MAXSIZE;
+	rear = (rear + 1) % MAXSIZE;
 	a[rear] = x;
 	count++;
-	std::cout<<"Inserted "<<x<<" into the queue."<<std::endl;
+	std::cout << "Inserted " << x << " into the queue." << std::endl;
 }
 int CircularQueue::dequeue()
 {
-	if(isEmpty())
+	if (isEmpty())
 	{
-		std::cout<<"ERROR! Cannot dequeue. Circular Queue is empty!"<<std::endl;
+		std::cout << "ERROR! Cannot dequeue. Circular Queue is empty!" << std::endl;
 		return -1;
 	}
-	
+
 	int value = a[front];
-	std::cout<<"Removed "<<value<<" from the queue"<<std::endl;
-	front = (front+1) % MAXSIZE;
+	std::cout << "Removed " << value << " from the queue" << std::endl;
+	front = (front + 1) % MAXSIZE;
 	count--;
 	return value;
 }
 void CircularQueue::display()
 {
-	std::cout<<"The contents of the queue are: ";
-	for(int i = 0; i < count; ++i)
+	std::cout << "The contents of the queue are: ";
+	for (int i = 0; i < count; ++i)
 	{
-		std::cout<<a[(front+i) % MAXSIZE]<<"\t";
+		std::cout << a[(front + i) % MAXSIZE] << "\t";
 	}
-	std::cout<<std::endl;	
-
+	std::cout << std::endl;
 }
 int main()
 {
@@ -83,7 +83,7 @@ int main()
 	q.dequeue();
 	q.dequeue();
 
-return 0;
+	return 0;
 }
 /*
 Expected Output-
